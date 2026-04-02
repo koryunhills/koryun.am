@@ -1,0 +1,46 @@
+---
+import WebflowLayout from '../layouts/WebflowLayout.astro';
+import WebflowCaseStudy from '../components/WebflowCaseStudy.astro';
+import WebflowContactForm from '../components/WebflowContactForm.astro';
+
+const CDN = 'https://cdn.prod.website-files.com/621b68aa86678f4b4952a8d6';
+---
+
+<WebflowLayout
+  title="Naviguide - Product Design made by Koryun"
+  description="Outdoor and indoor navigation mobile application with real-time positioning."
+  wfPageId="63d7c3f999e7a178a89ad7a4"
+>
+  <WebflowCaseStudy
+    title="Naviguide"
+    tagline="Outdoor in indoor navigation"
+    coverImage={`${CDN}/63d8cfd749fdb358d0ad34a2_Group%201276.jpg`}
+    overview="Naviguide is the mobile application for outdoor and indoor navigation with real-time positioning system of stadium. The solutions will help the user to enable indoor spatial data management, digitizing venues, and building best-in-class indoor mapping experiences for all visitors."
+    projectLength="6 months"
+    sector="Sports and Entertainment"
+    projectGoal="Enhance the overall fan experience by providing easy-to-use way-finding capabilities"
+    services="Product design, Brand strategy"
+    challenge="Enhance the fan experience overall by implementing convenient and precise navigation tools within the stadium"
+    approachClass="approach-naviguide"
+    approachTitle="Our approach"
+    approachSubtitle="Combining Strategy and Research"
+    approachResearch={['Competitive Analysis', 'Discovery Workshop', 'User Flows', 'User Personas']}
+    approachStrategy={['Information architecture', 'Requirements Definition']}
+    resultClass="result-naviguide"
+    resultTitle="Result"
+    resultSubtitle="User-Centric Solutions"
+    resultItems={['UI design and prototyping', 'User validation', 'Clickable Prototyping', 'Visual design', 'Design System']}
+    otherProjects={[
+      { title: 'Gouter', href: '/gouter', class: 'goutier' },
+      { title: 'Torn', href: '/torn', class: 'torn' }
+    ]}
+    overviewImage={{ src: `${CDN}/63d8d14e8b96712dd450ccf9_Frame%201175.jpg`, alt: 'Naviguide project wireframes', class: 'project-image-1' }}
+    challengeImage={{ src: `${CDN}/63d8d0f149fdb336d7ad45a8_Frame%201198.jpg`, alt: 'Naviguide project wireframes', class: 'naviguide-image-2' }}
+    approachImages={[{ src: `${CDN}/63d8d14e808af433462e507e_Frame%201199.jpg`, alt: 'Showcasing stages of design', class: 'naviguide-image-3' }]}
+    resultImages={[
+      { src: `${CDN}/63d8d01c741f1b19d661bca7_Frame%201186.jpg`, alt: 'Naviguide wireframes', class: 'naviguide-image-4' },
+      { src: `${CDN}/63d8d01cef9132783d7ca07d_Frame%201201.jpg`, alt: 'Naviguide information architecture', class: 'naviguide-image-5' }
+    ]}
+  />
+  <WebflowContactForm />
+</WebflowLayout>

@@ -1,0 +1,158 @@
+---
+---
+
+<section class="contact-section">
+  <div class="container">
+    <h2 class="section-title">Have a project in mind?</h2>
+    <p class="contact-intro">
+      Do you have a project or a brief about your next big thing? We will be delighted to hear from you.
+    </p>
+    <form class="contact-form" id="contact-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="help">What do you need help with?</label>
+          <select id="help" name="help">
+            <option value="">Select...</option>
+            <option value="ux-ui">UX/UI Design</option>
+            <option value="website">Website</option>
+            <option value="app">App</option>
+            <option value="strategy">Product Strategy</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="budget">Project Budget</label>
+          <select id="budget" name="budget">
+            <option value="">Select...</option>
+            <option value="5-25">5-25K</option>
+            <option value="25-50">25-50K</option>
+            <option value="50-100">50-100K</option>
+            <option value="100+">100K+</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" required />
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="4" required></textarea>
+      </div>
+      <button type="submit" class="btn">Let's work together</button>
+      <p class="form-success" id="form-success" hidden>
+        Thank you! You have just planted the first seeds of your product.
+      </p>
+      <p class="form-error" id="form-error" hidden>
+        Oops! Something went wrong while submitting the form.
+      </p>
+    </form>
+  </div>
+</section>
+
+<script>
+  document.getElementById('contact-form')?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const successEl = document.getElementById('form-success');
+    const errorEl = document.getElementById('form-error');
+    successEl?.setAttribute('hidden', '');
+    errorEl?.setAttribute('hidden', '');
+
+    // For static site: simulate success (integrate with Formspree, Netlify Forms, or Cloudflare Workers later)
+    const formData = new FormData(e.target as HTMLFormElement);
+    console.log('Form data:', Object.fromEntries(formData));
+
+    // Simulate async submission
+    setTimeout(() => {
+      (successEl as HTMLElement)?.removeAttribute('hidden');
+      (e.target as HTMLFormElement).reset();
+    }, 500);
+  });
+</script>
+
+<style>
+  .contact-section {
+    padding: var(--section-padding) 0;
+    background: var(--color-bg-elevated);
+  }
+
+  .contact-intro {
+    font-size: 1.125rem;
+    color: var(--color-text-muted);
+    max-width: 36rem;
+    margin: 0 0 3rem;
+  }
+
+  .contact-form {
+    max-width: 36rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .form-group label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-text-muted);
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    padding: 0.875rem 1rem;
+    font-family: inherit;
+    font-size: 1rem;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    color: var(--color-text);
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: var(--color-accent);
+  }
+
+  .form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+
+  .form-success {
+    color: #22c55e;
+    font-size: 0.9375rem;
+    margin: 0;
+  }
+
+  .form-error {
+    color: #ef4444;
+    font-size: 0.9375rem;
+    margin: 0;
+  }
+
+  @media (max-width: 640px) {
+    .form-row {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

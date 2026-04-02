@@ -1,0 +1,173 @@
+---
+import { CDN } from '../data/cdn';
+
+interface CaseStudyImage {
+  src: string;
+  alt: string;
+  class: string;
+}
+
+interface Props {
+  title: string;
+  tagline: string;
+  coverImage: string;
+  overview: string;
+  projectLength: string;
+  sector: string;
+  projectGoal: string;
+  services: string;
+  challenge: string;
+  approachClass: string;
+  approachTitle: string;
+  approachSubtitle: string;
+  approachResearch: string[];
+  approachStrategy: string[];
+  resultClass: string;
+  resultTitle: string;
+  resultSubtitle: string;
+  resultItems: string[];
+  otherProjects: { title: string; href: string; class: string }[];
+  overviewImage?: CaseStudyImage;
+  challengeImage?: CaseStudyImage;
+  approachImages?: CaseStudyImage[];
+  resultImages?: CaseStudyImage[];
+}
+const { title, tagline, coverImage, overview, projectLength, sector, projectGoal, services, challenge, approachClass, approachTitle, approachSubtitle, approachResearch, approachStrategy, resultClass, resultTitle, resultSubtitle, resultItems, otherProjects, overviewImage, challengeImage, approachImages = [], resultImages = [] } = Astro.props;
+---
+
+<div class="case-study-hero-section">
+  <div class="case-study-hero-container w-container">
+    <h1 class="case-study-title">{title}</h1>
+    <p class="case-study-tagline">{tagline}</p>
+    <div class="case-study-cover" style={`background-image: url(${coverImage})`}></div>
+  </div>
+</div>
+
+<div class="project-overview-section">
+  <div class="container-6 w-container">
+    <div class="project-overview-div">
+      <div class="overview-label">Overview</div>
+      <p class="overview-text">{overview}</p>
+    </div>
+    {overviewImage && (
+      <div class="project-image-trigger-div">
+        <img src={overviewImage.src} loading="lazy" alt={overviewImage.alt} class={overviewImage.class} />
+      </div>
+    )}
+    <div class="w-layout-grid overview-meta-grid">
+      <div class="meta-item">
+        <span class="meta-label">Project length</span>
+        <span class="meta-value">{projectLength}</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Sector</span>
+        <span class="meta-value">{sector}</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Project Goal</span>
+        <span class="meta-value">{projectGoal}</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Services</span>
+        <span class="meta-value">{services}</span>
+      </div>
+    </div>
+    <div class="project-overview-div">
+      <div class="overview-label">Challenge</div>
+      <p class="overview-text">{challenge}</p>
+    </div>
+    {challengeImage && (
+      <div class="challenge-section-trigger">
+        <img src={challengeImage.src} loading="lazy" alt={challengeImage.alt} class={challengeImage.class} />
+      </div>
+    )}
+  </div>
+</div>
+
+<div class={`approach-section ${approachClass}`}>
+  <div class="approach-container w-container">
+    <div class="approach-heading-case">{approachTitle}</div>
+    <div class="approach-subheading-case">{approachSubtitle}</div>
+    <div class="w-layout-grid approach-columns">
+      <div class="approach-col">
+        <div class="approach-col-heading">Research</div>
+        <ul class="approach-list">
+          {approachResearch.map((item) => <li>{item}</li>)}
+        </ul>
+      </div>
+      {approachStrategy.length > 0 && (
+        <div class="approach-col">
+          <div class="approach-col-heading">Strategy</div>
+          <ul class="approach-list">
+            {approachStrategy.map((item) => <li>{item}</li>)}
+          </ul>
+        </div>
+      )}
+    </div>
+    {approachImages.length > 0 && approachImages.map((img, i) => (
+      <div key={img.src} class={i === 0 ? 'trigger-naviguide-ourapproachimage' : ''}>
+        <img src={img.src} loading="lazy" alt={img.alt} class={img.class} />
+      </div>
+    ))}
+  </div>
+</div>
+
+<div class={`result-section ${resultClass}`}>
+  <div class="container-6 w-container">
+    <div class="result-heading">{resultTitle}</div>
+    <div class="result-subheading">{resultSubtitle}</div>
+    <ul class="result-items-list">
+      {resultItems.map((item) => <li>{item}</li>)}
+    </ul>
+    {resultImages.length > 0 && resultImages.map((img, i) => (
+      <div class={i === 0 ? 'trigger-naviguide-image' : 'trigger-naviguide-image-2'}>
+        <img src={img.src} loading="lazy" alt={img.alt} class={img.class} />
+      </div>
+    ))}
+  </div>
+</div>
+
+<div class="other-projects-section">
+  <div class="container-6 w-container">
+    <div class="other-projects-heading">Other projects</div>
+    <div class="w-layout-grid other-projects-grid">
+      {otherProjects.map((project) => (
+        <a href={project.href} class={`other-project-link ${project.class}`}>
+          <span class="other-project-type">Product design</span>
+          <span class="other-project-title">{project.title}</span>
+          <span class="other-project-cta">See case study</span>
+        </a>
+      ))}
+    </div>
+  </div>
+</div>
+
+<style>
+  .case-study-hero-section { padding: 4rem 0; }
+  .case-study-title { font-size: 3rem; margin: 0 0 0.5rem; }
+  .case-study-tagline { font-size: 1.25rem; color: var(--red, #E22D43); margin: 0 0 2rem; }
+  .case-study-cover { height: 50vh; background-size: cover; background-position: 50%; border-radius: 16px; }
+  .project-overview-section { padding: 4rem 0; }
+  .overview-label { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; }
+  .overview-text { margin: 0 0 2rem; }
+  .overview-meta-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+  .meta-label { display: block; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; margin-bottom: 0.25rem; }
+  .approach-columns { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+  .approach-col-heading { font-size: 1rem; font-weight: 600; margin-bottom: 1rem; }
+  .approach-list { list-style: none; margin: 0; padding: 0; }
+  .approach-list li { padding: 0.25rem 0; }
+  .result-section { padding: 4rem 0; }
+  .result-heading { font-size: 2rem; margin: 0 0 0.5rem; }
+  .result-subheading { font-size: 1.25rem; margin: 0 0 2rem; opacity: 0.8; }
+  .result-items-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.5rem; }
+  .other-projects-section { padding: 4rem 0; }
+  .other-projects-heading { font-size: 1rem; font-weight: 600; margin-bottom: 1.5rem; }
+  .other-projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+  .other-project-link { display: block; padding: 1.5rem; border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; transition: border-color 0.2s; }
+  .other-project-link:hover { border-color: var(--red, #E22D43); }
+  .other-project-type { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; display: block; margin-bottom: 0.5rem; }
+  .other-project-title { font-weight: 600; display: block; }
+  .other-project-cta { font-size: 0.875rem; opacity: 0.8; }
+  /* Override Webflow trigger divs so images display (they use height:0 for scroll triggers) */
+  .project-image-trigger-div, .challenge-section-trigger, .trigger-naviguide-ourapproachimage, .trigger-naviguide-image, .trigger-naviguide-image-2 { height: auto !important; min-height: 0; margin-bottom: 24px; }
+</style>

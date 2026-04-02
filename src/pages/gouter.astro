@@ -1,0 +1,49 @@
+---
+import WebflowLayout from '../layouts/WebflowLayout.astro';
+import WebflowCaseStudy from '../components/WebflowCaseStudy.astro';
+import WebflowContactForm from '../components/WebflowContactForm.astro';
+
+const CDN = 'https://cdn.prod.website-files.com/621b68aa86678f4b4952a8d6';
+---
+
+<WebflowLayout
+  title="Gouter - UX/UI Design made by Koryun Agency"
+  description="Simple to use online QR-code menu for restaurants."
+  wfPageId="63ca3322ee93677d29fbb846"
+>
+  <WebflowCaseStudy
+    title="Gouter"
+    tagline="Simple to use online QR-code menu"
+    coverImage={`${CDN}/63cfe47289ae170b9cac5a3b_Group%201258.jpg`}
+    overview="Gouter is a modern, simple to use Online QR-code Menu that allows customers to browse digital menu using their mobile devices. It gives possibility to guests not only to dine-in, but also reserve a table and make a pre-order."
+    projectLength="4 months"
+    sector="Restaurant industry"
+    projectGoal="Create a product that will cover all processes of restaurant life cycle"
+    services="Product design, Brand strategy"
+    challenge="Improve the efficiency of the dining experience by allowing customers to view and order from the menu digitally, reducing the need for waitstaff and streamlining the order process."
+    approachClass="approach-gouter"
+    approachTitle="Process"
+    approachSubtitle="Understanding Primary Goals & Objectives"
+    approachResearch={['Ethnographic User Study', 'Competitive Analysis', 'User personas', 'Discovery Workshop', 'Requirements Definition', 'User Flows', 'Expert Analysis', 'Wireframes']}
+    approachStrategy={[]}
+    resultClass="result-gouter"
+    resultTitle="Result"
+    resultSubtitle="Functionable & Usable Design"
+    resultItems={['Clickable Prototyping', 'Style Guide', '250+ High Fidelity Designs', 'Wireframes', 'Desktop and Mobile Design']}
+    otherProjects={[
+      { title: 'Naviguide', href: '/naviguide', class: 'naviguide' },
+      { title: 'Torn', href: '/torn', class: 'torn' }
+    ]}
+    overviewImage={{ src: `${CDN}/63d8f597d7ee851c2ccd9f64_Frame%201204.jpg`, alt: 'Gouter wireframes', class: 'gouter-project-image' }}
+    challengeImage={{ src: `${CDN}/63d8f5a0aa3cce3a05092ab0_Frame%201205.jpg`, alt: 'Gouter wireframes', class: 'gouter-project-image-2' }}
+    approachImages={[
+      { src: `${CDN}/63d8f66fc9a5a967ba1c3b04_Frame%201182.jpg`, alt: 'Gouter low fidelity wireframes', class: 'image-19' },
+      { src: `${CDN}/63d8f66e8b9671d18853594a_Frame%201183.jpg`, alt: 'Gouter low fidelity wireframes', class: 'image-20' }
+    ]}
+    resultImages={[
+      { src: `${CDN}/63d8f5f22d9d55d9c013e206_Frame%201185.jpg`, alt: 'Gouter wireframes', class: 'gouter-project-image-3' },
+      { src: `${CDN}/63d8f59e808af4172930fdc4_Frame%201206.jpg`, alt: 'Gouter mobile wireframes', class: 'gouter-project-image-4' }
+    ]}
+  />
+  <WebflowContactForm />
+</WebflowLayout>

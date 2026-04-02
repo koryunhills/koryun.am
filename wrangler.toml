@@ -1,0 +1,6 @@
+# Cloudflare Pages — connect this repo or deploy with:
+#   npx wrangler pages deploy dist --project-name=koryun
+#
+name = "koryun"
+pages_build_output_dir = "dist"
+compatibility_date = "2024-11-01"

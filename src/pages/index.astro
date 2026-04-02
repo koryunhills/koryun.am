@@ -1,0 +1,421 @@
+---
+import ComingSoonLayout from '../layouts/ComingSoonLayout.astro';
+
+const CONTACT_EMAIL = 'sunday@koryun.am';
+const MAIL_SUBJECT = encodeURIComponent('Koryun v2 — inquiry');
+---
+
+<ComingSoonLayout
+  title="Koryun | Something new is coming"
+  description="Koryun is a design studio. Our new site launches June 1, 2026."
+>
+  <main class="page">
+    <div class="glow" aria-hidden="true"></div>
+    <div class="shimmer-layer" aria-hidden="true">
+      <div class="blob blob-1"></div>
+      <div class="blob blob-2"></div>
+      <div class="blob blob-3"></div>
+      <div class="blob blob-4"></div>
+      <div class="blob blob-5"></div>
+    </div>
+    <div class="noise noise-coarse" aria-hidden="true"></div>
+    <div class="noise noise-fine" aria-hidden="true"></div>
+
+    <div class="content">
+      <div class="brand">
+        <img
+          class="logo-mark"
+          src="/images/koryun-mark.svg"
+          width="17"
+          height="32"
+          alt="Koryun"
+        />
+      </div>
+
+      <p class="countdown" id="countdown" aria-live="polite"></p>
+
+      <div class="cta">
+        <a class="button" href={`mailto:${CONTACT_EMAIL}?subject=${MAIL_SUBJECT}`}>
+          {CONTACT_EMAIL}
+        </a>
+        <p class="hint">For projects or questions until then, reach us by email.</p>
+      </div>
+    </div>
+
+    <footer class="foot">
+      <span>© {new Date().getFullYear()} Koryun</span>
+    </footer>
+  </main>
+
+  <style>
+    .page {
+      /* Near-black base; brand reds sit in a layer above (screen blend) */
+      --bg: #0a0a0a;
+      --text: #e8e6e3;
+      --muted: rgba(232, 230, 227, 0.58);
+      --accent: #e22d43;
+
+      min-height: 100dvh;
+      max-height: 100dvh;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(1rem, 3vw, 2rem);
+      box-sizing: border-box;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Geist Sans', ui-sans-serif, system-ui, sans-serif;
+      font-weight: 400;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .glow {
+      z-index: 0;
+      position: absolute;
+      inset: -45% -25%;
+      /* Ambient wash — koryun pinks / #e22d43; screen = visible on black */
+      background:
+        radial-gradient(ellipse 65% 48% at 48% 22%, rgba(255, 104, 122, 0.22), transparent 58%),
+        radial-gradient(ellipse 52% 44% at 12% 55%, rgba(255, 179, 188, 0.12), transparent 52%),
+        radial-gradient(ellipse 48% 58% at 82% 42%, rgba(226, 45, 67, 0.2), transparent 54%),
+        radial-gradient(ellipse 58% 42% at 52% 88%, rgba(255, 83, 104, 0.14), transparent 56%);
+      pointer-events: none;
+      mix-blend-mode: screen;
+      opacity: 0.82;
+    }
+
+    .shimmer-layer {
+      z-index: 0;
+      position: absolute;
+      inset: -20%;
+      pointer-events: none;
+      filter: blur(88px);
+      mix-blend-mode: screen;
+      opacity: 0.58;
+    }
+
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      will-change: transform, opacity;
+    }
+
+    .blob-1 {
+      width: min(52vw, 440px);
+      height: min(52vw, 440px);
+      background: radial-gradient(
+        circle at 40% 35%,
+        rgba(255, 104, 122, 0.26) 0%,
+        rgba(255, 104, 122, 0.1) 48%,
+        transparent 68%
+      );
+      top: -8%;
+      left: -12%;
+      animation: blob-shimmer-a 16s ease-in-out infinite;
+    }
+
+    .blob-2 {
+      width: min(44vw, 380px);
+      height: min(44vw, 380px);
+      background: radial-gradient(
+        circle at 55% 50%,
+        rgba(226, 45, 67, 0.3) 0%,
+        rgba(226, 45, 67, 0.09) 52%,
+        transparent 70%
+      );
+      top: 18%;
+      right: -8%;
+      animation: blob-shimmer-b 19s ease-in-out infinite;
+      animation-delay: -3s;
+    }
+
+    .blob-3 {
+      width: min(48vw, 400px);
+      height: min(56vw, 460px);
+      border-radius: 50% 48% 52% 50%;
+      background: radial-gradient(
+        circle at 50% 45%,
+        rgba(255, 138, 144, 0.2) 0%,
+        rgba(255, 138, 144, 0.07) 58%,
+        transparent 75%
+      );
+      bottom: -5%;
+      left: 18%;
+      animation: blob-shimmer-c 21s ease-in-out infinite;
+      animation-delay: -6s;
+    }
+
+    .blob-4 {
+      width: min(36vw, 320px);
+      height: min(36vw, 320px);
+      background: radial-gradient(
+        circle at 50% 50%,
+        rgba(255, 154, 166, 0.18) 0%,
+        rgba(255, 154, 166, 0.06) 55%,
+        transparent 72%
+      );
+      top: 42%;
+      left: 38%;
+      animation: blob-shimmer-d 14s ease-in-out infinite;
+      animation-delay: -2s;
+    }
+
+    .blob-5 {
+      width: min(40vw, 340px);
+      height: min(40vw, 340px);
+      border-radius: 48% 52% 50% 48%;
+      background: radial-gradient(
+        circle at 42% 58%,
+        rgba(255, 118, 135, 0.22) 0%,
+        rgba(255, 139, 160, 0.08) 54%,
+        transparent 74%
+      );
+      bottom: 12%;
+      right: 12%;
+      animation: blob-shimmer-e 18s ease-in-out infinite;
+      animation-delay: -9s;
+    }
+
+    @keyframes blob-shimmer-a {
+      0%,
+      100% {
+        transform: translate(0, 0) scale(1);
+        opacity: 0.385;
+      }
+      40% {
+        transform: translate(12%, 10%) scale(1.12);
+        opacity: 0.572;
+      }
+      70% {
+        transform: translate(-6%, 14%) scale(0.96);
+        opacity: 0.44;
+      }
+    }
+
+    @keyframes blob-shimmer-b {
+      0%,
+      100% {
+        transform: translate(0, 0) scale(1.02);
+        opacity: 0.308;
+      }
+      50% {
+        transform: translate(-14%, 8%) scale(1.1);
+        opacity: 0.528;
+      }
+    }
+
+    @keyframes blob-shimmer-c {
+      0%,
+      100% {
+        transform: translate(0, 0) rotate(0deg) scale(1);
+        opacity: 0.275;
+      }
+      45% {
+        transform: translate(8%, -12%) rotate(-6deg) scale(1.08);
+        opacity: 0.484;
+      }
+      75% {
+        transform: translate(-10%, 6%) rotate(4deg) scale(0.94);
+        opacity: 0.352;
+      }
+    }
+
+    @keyframes blob-shimmer-d {
+      0%,
+      100% {
+        transform: translate(0, 0) scale(0.95);
+        opacity: 0.242;
+      }
+      50% {
+        transform: translate(-18%, -10%) scale(1.15);
+        opacity: 0.44;
+      }
+    }
+
+    @keyframes blob-shimmer-e {
+      0%,
+      100% {
+        transform: translate(0, 0) scale(1);
+        opacity: 0.286;
+      }
+      33% {
+        transform: translate(-12%, -8%) scale(1.06);
+        opacity: 0.462;
+      }
+      66% {
+        transform: translate(10%, 12%) scale(0.92);
+        opacity: 0.33;
+      }
+    }
+
+    .noise {
+      z-index: 0;
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      mix-blend-mode: overlay;
+    }
+
+    .noise-coarse {
+      opacity: 0.11;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 256px 256px;
+    }
+
+    .noise-fine {
+      z-index: 0;
+      opacity: 0.07;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.15' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 180px 180px;
+      mix-blend-mode: soft-light;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .blob {
+        animation: none;
+      }
+
+      .shimmer-layer {
+        opacity: 0.44;
+      }
+    }
+
+    .content {
+      position: relative;
+      z-index: 1;
+      max-width: 34rem;
+      width: 100%;
+      text-align: center;
+      flex: 1 1 auto;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .brand {
+      display: flex;
+      justify-content: center;
+      margin-bottom: clamp(1rem, 3vh, 1.5rem);
+    }
+
+    .logo-mark {
+      display: block;
+      width: auto;
+      height: min(44px, 11vw);
+    }
+
+    .countdown {
+      margin: 0 0 clamp(1rem, 3vh, 1.5rem);
+      min-height: 1.5rem;
+      font-family: 'Geist Mono', ui-monospace, monospace;
+      font-size: 0.875rem;
+      font-weight: 400;
+      font-variant-numeric: tabular-nums;
+      color: var(--muted);
+    }
+
+    .cta {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.75rem 1.25rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.06);
+      border: none;
+      color: var(--text);
+      font-family: 'Geist Mono', ui-monospace, monospace;
+      font-size: 0.875rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: background 0.2s ease, transform 0.15s ease;
+    }
+
+    .button:hover {
+      background: rgba(226, 45, 67, 0.18);
+    }
+
+    .button:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+    }
+
+    .hint {
+      margin: 0;
+      max-width: 22rem;
+      font-size: 0.8125rem;
+      font-weight: 400;
+      line-height: 1.45;
+      color: var(--muted);
+    }
+
+    .foot {
+      position: relative;
+      z-index: 1;
+      margin-top: auto;
+      padding-top: clamp(1rem, 4vh, 2rem);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8125rem;
+      font-weight: 400;
+      color: var(--muted);
+      flex-shrink: 0;
+    }
+
+    ::selection {
+      color: #fff;
+      background: var(--accent);
+    }
+  </style>
+
+  <script is:inline>
+    (function () {
+      var el = document.getElementById('countdown');
+      if (!el) return;
+
+      var launch = new Date('2026-06-01T00:00:00+04:00').getTime();
+
+      function tick() {
+        var now = Date.now();
+        var diff = launch - now;
+        if (diff <= 0) {
+          el.textContent = 'We’re live — refresh for the new site.';
+          return;
+        }
+        var s = Math.floor(diff / 1000);
+        var days = Math.floor(s / 86400);
+        s %= 86400;
+        var hours = Math.floor(s / 3600);
+        s %= 3600;
+        var mins = Math.floor(s / 60);
+        var secs = s % 60;
+        el.textContent =
+          days +
+          'd ' +
+          String(hours).padStart(2, '0') +
+          'h ' +
+          String(mins).padStart(2, '0') +
+          'm ' +
+          String(secs).padStart(2, '0') +
+          's until launch';
+      }
+
+      tick();
+      setInterval(tick, 1000);
+    })();
+  </script>
+</ComingSoonLayout>

@@ -1,0 +1,45 @@
+---
+import WebflowLayout from '../layouts/WebflowLayout.astro';
+import WebflowCaseStudy from '../components/WebflowCaseStudy.astro';
+import WebflowContactForm from '../components/WebflowContactForm.astro';
+
+const CDN = 'https://cdn.prod.website-files.com/621b68aa86678f4b4952a8d6';
+---
+
+<WebflowLayout
+  title="Torn - Web Design made by Koryun"
+  description="Timeshare brand revolutionizing holiday and vacation ownership."
+  wfPageId="63d7c3ea6b7da260787ce856"
+>
+  <WebflowCaseStudy
+    title="Torn"
+    tagline="Revolutionize the holiday and share vacation ownership industry"
+    coverImage={`${CDN}/63dbc667e7bf2aae8e7be26d_Torn-cover-image-second.jpg`}
+    overview="Torn is the timeshare brand of Vidar & Co. construction group. The vision of the company is to revolutionize the holiday and share vacation ownership industry by bringing world class holiday experiences to middle class families in affordable prices."
+    projectLength="2 months"
+    sector="Real estate"
+    projectGoal="Create an easy road map for customers to navigate a real estate world"
+    services="Product design, Brand strategy"
+    challenge="Empower customers to communicate with landlords and vice versa. Include variety of search options to tailor customer's goals"
+    approachClass="approach-torn"
+    approachTitle="Our approach"
+    approachSubtitle="Backing design with user feedback"
+    approachResearch={['Ethnographic User Study', 'Competitive Analysis', 'User personas', 'Discovery Workshop', 'User Flows', 'Wireframes']}
+    approachStrategy={['Requirements Definition', 'Expert Analysis']}
+    resultClass="result-torn"
+    resultTitle="Result"
+    resultSubtitle="Unified and Consistent Design"
+    resultItems={['UI Design and Prototyping', 'Style Guide', 'Visual Design', 'Design System', 'Desktop and Mobile Design']}
+    otherProjects={[
+      { title: 'Naviguide', href: '/naviguide', class: 'naviguide' },
+      { title: 'Gouter', href: '/gouter', class: 'goutier' }
+    ]}
+    overviewImage={{ src: `${CDN}/63d8fcb57da01f7bbaa91d70_Frame%201175.jpg`, alt: 'Torn wireframes', class: 'torn-project-image' }}
+    challengeImage={{ src: `${CDN}/63d8fcb514968726c45f1ac3_Frame%201182.jpg`, alt: 'Torn wireframes', class: 'torn-project-image-2' }}
+    approachImage={{ src: `${CDN}/63d8fcb514968742905f1abf_Frame%201196.jpg`, alt: 'Torn project wireframes', class: 'torn-project-image-3' }}
+    resultImages={[
+      { src: `${CDN}/63d8fcb549fdb36634afca81_Frame%201197.jpg`, alt: 'Torn project wireframes', class: 'torn-project-image-4' }
+    ]}
+  />
+  <WebflowContactForm />
+</WebflowLayout>

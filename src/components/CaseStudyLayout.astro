@@ -1,0 +1,270 @@
+---
+interface Props {
+  title: string;
+  tagline: string;
+  overview: string;
+  projectLength: string;
+  sector: string;
+  projectGoal: string;
+  services: string;
+  challenge: string;
+  approachTitle: string;
+  approachSubtitle: string;
+  approachItems: { research: string[]; strategy: string[] };
+  resultTitle: string;
+  resultSubtitle: string;
+  resultItems: string[];
+  otherProjects: { title: string; href: string }[];
+}
+const { title, tagline, overview, projectLength, sector, projectGoal, services, challenge, approachTitle, approachSubtitle, approachItems, resultTitle, resultSubtitle, resultItems, otherProjects } = Astro.props;
+---
+
+<section class="case-hero">
+  <div class="container">
+    <h1 class="case-hero-title">{title}</h1>
+    <p class="case-hero-tagline">{tagline}</p>
+    <div class="case-meta">
+      <div class="meta-block">
+        <span class="meta-label">Overview</span>
+        <p class="meta-value">{overview}</p>
+      </div>
+      <div class="meta-grid">
+        <div class="meta-item">
+          <span class="meta-label">Project length</span>
+          <span class="meta-value">{projectLength}</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Sector</span>
+          <span class="meta-value">{sector}</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Project Goal</span>
+          <span class="meta-value">{projectGoal}</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Services</span>
+          <span class="meta-value">{services}</span>
+        </div>
+      </div>
+      <div class="meta-block">
+        <span class="meta-label">Challenge</span>
+        <p class="meta-value">{challenge}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="case-approach">
+  <div class="container">
+    <h2 class="case-section-title">{approachTitle}</h2>
+    <h3 class="case-section-subtitle">{approachSubtitle}</h3>
+    <div class="approach-columns">
+      {approachItems.research.length > 0 && (
+        <div class="approach-col">
+          <h4>Research</h4>
+          <ul>
+            {approachItems.research.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+      {approachItems.strategy.length > 0 && (
+        <div class="approach-col">
+          <h4>Strategy</h4>
+          <ul>
+            {approachItems.strategy.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  </div>
+</section>
+
+<section class="case-result">
+  <div class="container">
+    <h2 class="case-section-title">{resultTitle}</h2>
+    <h3 class="case-section-subtitle">{resultSubtitle}</h3>
+    <ul class="result-list">
+      {resultItems.map((item) => (
+        <li>{item}</li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<section class="other-projects">
+  <div class="container">
+    <h2 class="section-subtitle">Other projects</h2>
+    <div class="other-grid">
+      {otherProjects.map((project) => (
+        <a href={project.href} class="other-card">
+          <span class="other-tag">Product design</span>
+          <span class="other-title">{project.title}</span>
+          <span class="other-link">See case study</span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .case-hero {
+    padding: var(--section-padding) 0;
+  }
+
+  .case-hero-title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    margin: 0 0 0.5rem;
+  }
+
+  .case-hero-tagline {
+    font-size: 1.25rem;
+    color: var(--color-accent);
+    margin: 0 0 2rem;
+  }
+
+  .case-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .meta-block .meta-label,
+  .meta-item .meta-label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-accent);
+    margin-bottom: 0.5rem;
+  }
+
+  .meta-block .meta-value {
+    font-size: 1rem;
+    color: var(--color-text-muted);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .meta-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .meta-item .meta-value {
+    font-size: 0.9375rem;
+  }
+
+  .case-approach {
+    padding: var(--section-padding) 0;
+    background: var(--color-bg-elevated);
+  }
+
+  .case-section-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin: 0 0 0.25rem;
+  }
+
+  .case-section-subtitle {
+    font-family: var(--font-sans);
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--color-text-muted);
+    margin: 0 0 2rem;
+  }
+
+  .approach-columns {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+  }
+
+  .approach-col h4 {
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 1rem;
+  }
+
+  .approach-col ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .approach-col li {
+    font-size: 0.9375rem;
+    color: var(--color-text-muted);
+    padding: 0.25rem 0;
+  }
+
+  .case-result {
+    padding: var(--section-padding) 0;
+  }
+
+  .result-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+
+  .result-list li {
+    font-size: 0.9375rem;
+    color: var(--color-text-muted);
+  }
+
+  .other-projects {
+    padding: var(--section-padding) 0;
+    background: var(--color-bg-elevated);
+  }
+
+  .other-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .other-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1.5rem;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    transition: border-color 0.2s;
+  }
+
+  .other-card:hover {
+    border-color: var(--color-accent);
+  }
+
+  .other-tag {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-accent);
+  }
+
+  .other-title {
+    font-weight: 600;
+  }
+
+  .other-link {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+  }
+
+  .other-card:hover .other-link {
+    color: var(--color-accent);
+  }
+</style>
