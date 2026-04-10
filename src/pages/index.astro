@@ -17,6 +17,8 @@ const MAIL_SUBJECT = encodeURIComponent('Koryun v2 — inquiry');
       <div class="blob blob-3"></div>
       <div class="blob blob-4"></div>
       <div class="blob blob-5"></div>
+      <div class="blob blob-6"></div>
+      <div class="blob blob-7"></div>
     </div>
     <div class="noise noise-coarse" aria-hidden="true"></div>
     <div class="noise noise-fine" aria-hidden="true"></div>
@@ -33,68 +35,104 @@ const MAIL_SUBJECT = encodeURIComponent('Koryun v2 — inquiry');
       </div>
 
       <p class="countdown" id="countdown" aria-live="polite"></p>
-
-      <div class="cta">
-        <a class="button" href={`mailto:${CONTACT_EMAIL}?subject=${MAIL_SUBJECT}`}>
-          {CONTACT_EMAIL}
-        </a>
-        <p class="hint">For projects or questions until then, reach us by email.</p>
-      </div>
     </div>
 
-    <footer class="foot">
-      <span>© {new Date().getFullYear()} Koryun</span>
+    <footer class="site-footer">
+      <p class="footer-line">
+        For projects or questions{' '}
+        <a
+          class="footer-email"
+          href={`mailto:${CONTACT_EMAIL}?subject=${MAIL_SUBJECT}`}
+        >
+          {CONTACT_EMAIL}
+        </a>
+      </p>
     </footer>
   </main>
 
   <style>
+    /*
+      “Sharp” preview: glow/shimmer use mix-blend-mode: normal; noise off.
+      Restore polish: .glow → screen | .shimmer-layer → soft-light | noise 0.11 / 0.07
+    */
     .page {
-      /* Near-black base; brand reds sit in a layer above (screen blend) */
-      --bg: #0a0a0a;
+      --bg: #050505;
       --text: #e8e6e3;
       --muted: rgba(232, 230, 227, 0.58);
-      --accent: #e22d43;
+      --accent: #e5293c;
+      /* Deep red washes only (blobs / glow) */
+      --blob-wine: 55, 12, 22;
+      --blob-ember: 140, 28, 42;
 
-      min-height: 100dvh;
-      max-height: 100dvh;
+      /* Fill fixed body; no document scroll on mobile */
+      min-height: 100%;
+      height: 100%;
+      max-height: 100%;
       margin: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: clamp(1rem, 3vw, 2rem);
+      padding-top: max(clamp(0.75rem, 3vw, 1.5rem), env(safe-area-inset-top, 0px));
+      padding-right: max(clamp(0.75rem, 3vw, 1.5rem), env(safe-area-inset-right, 0px));
+      padding-bottom: max(clamp(0.75rem, 3vw, 1.5rem), env(safe-area-inset-bottom, 0px));
+      padding-left: max(clamp(0.75rem, 3vw, 1.5rem), env(safe-area-inset-left, 0px));
       box-sizing: border-box;
-      background: var(--bg);
+      /* Broken black: uneven near-black + subtle lift, not flat #000 */
+      background-color: var(--bg);
+      background-image:
+        radial-gradient(ellipse 130% 90% at 18% 12%, rgba(255, 255, 255, 0.028) 0%, transparent 52%),
+        radial-gradient(ellipse 90% 70% at 88% 78%, rgba(0, 0, 0, 0.45) 0%, transparent 55%),
+        radial-gradient(ellipse 100% 85% at 48% 48%, #0a0a0a 0%, #030303 42%, #080808 100%);
       color: var(--text);
       font-family: 'Geist Sans', ui-sans-serif, system-ui, sans-serif;
       font-weight: 400;
       position: relative;
       overflow: hidden;
+      overflow: clip;
+      overscroll-behavior: none;
     }
 
     .glow {
       z-index: 0;
       position: absolute;
-      inset: -45% -25%;
-      /* Ambient wash — koryun pinks / #e22d43; screen = visible on black */
+      inset: -50% -30%;
       background:
-        radial-gradient(ellipse 65% 48% at 48% 22%, rgba(255, 104, 122, 0.22), transparent 58%),
-        radial-gradient(ellipse 52% 44% at 12% 55%, rgba(255, 179, 188, 0.12), transparent 52%),
-        radial-gradient(ellipse 48% 58% at 82% 42%, rgba(226, 45, 67, 0.2), transparent 54%),
-        radial-gradient(ellipse 58% 42% at 52% 88%, rgba(255, 83, 104, 0.14), transparent 56%);
+        radial-gradient(
+          ellipse 72% 55% at 48% 22%,
+          rgba(255, 104, 122, 0.12) 0%,
+          rgba(255, 104, 122, 0.06) 38%,
+          rgba(255, 104, 122, 0.02) 58%,
+          transparent 78%
+        ),
+        radial-gradient(
+          ellipse 58% 50% at 12% 55%,
+          rgba(90, 18, 28, 0.14) 0%,
+          rgba(90, 18, 28, 0.06) 42%,
+          transparent 72%
+        ),
+        radial-gradient(
+          ellipse 55% 62% at 82% 42%,
+          rgba(226, 45, 67, 0.12) 0%,
+          rgba(226, 45, 67, 0.05) 45%,
+          transparent 75%
+        ),
+        radial-gradient(
+          ellipse 62% 48% at 52% 88%,
+          rgba(45, 10, 16, 0.2) 0%,
+          rgba(45, 10, 16, 0.08) 48%,
+          transparent 76%
+        );
       pointer-events: none;
       mix-blend-mode: screen;
-      opacity: 0.82;
+      opacity: 0.8;
+      filter: blur(40px);
     }
 
     .shimmer-layer {
       z-index: 0;
       position: absolute;
-      inset: -20%;
+      inset: -35%;
       pointer-events: none;
-      filter: blur(88px);
-      mix-blend-mode: screen;
-      opacity: 0.58;
+      mix-blend-mode: soft-light;
+      opacity: 0.5;
+      filter: blur(80px);
     }
 
     .blob {
@@ -104,150 +142,214 @@ const MAIL_SUBJECT = encodeURIComponent('Koryun v2 — inquiry');
     }
 
     .blob-1 {
-      width: min(52vw, 440px);
-      height: min(52vw, 440px);
+      width: min(70vw, 620px);
+      height: min(70vw, 620px);
       background: radial-gradient(
         circle at 40% 35%,
-        rgba(255, 104, 122, 0.26) 0%,
-        rgba(255, 104, 122, 0.1) 48%,
-        transparent 68%
+        rgba(255, 90, 110, 0.18) 0%,
+        rgba(255, 90, 110, 0.08) 38%,
+        rgba(255, 90, 110, 0.025) 60%,
+        transparent 85%
       );
-      top: -8%;
-      left: -12%;
+      top: -12%;
+      left: -15%;
       animation: blob-shimmer-a 16s ease-in-out infinite;
     }
 
     .blob-2 {
-      width: min(44vw, 380px);
-      height: min(44vw, 380px);
+      width: min(60vw, 520px);
+      height: min(60vw, 520px);
       background: radial-gradient(
         circle at 55% 50%,
-        rgba(226, 45, 67, 0.3) 0%,
-        rgba(226, 45, 67, 0.09) 52%,
-        transparent 70%
+        rgba(200, 40, 60, 0.2) 0%,
+        rgba(200, 40, 60, 0.09) 36%,
+        rgba(200, 40, 60, 0.03) 58%,
+        transparent 82%
       );
-      top: 18%;
-      right: -8%;
+      top: 15%;
+      right: -10%;
       animation: blob-shimmer-b 19s ease-in-out infinite;
       animation-delay: -3s;
     }
 
     .blob-3 {
-      width: min(48vw, 400px);
-      height: min(56vw, 460px);
+      width: min(65vw, 560px);
+      height: min(72vw, 600px);
       border-radius: 50% 48% 52% 50%;
       background: radial-gradient(
         circle at 50% 45%,
-        rgba(255, 138, 144, 0.2) 0%,
-        rgba(255, 138, 144, 0.07) 58%,
-        transparent 75%
+        rgba(var(--blob-wine), 0.32) 0%,
+        rgba(var(--blob-wine), 0.15) 40%,
+        rgba(var(--blob-wine), 0.05) 60%,
+        transparent 82%
       );
-      bottom: -5%;
-      left: 18%;
+      bottom: -8%;
+      left: 15%;
       animation: blob-shimmer-c 21s ease-in-out infinite;
       animation-delay: -6s;
     }
 
     .blob-4 {
-      width: min(36vw, 320px);
-      height: min(36vw, 320px);
+      width: min(55vw, 480px);
+      height: min(55vw, 480px);
       background: radial-gradient(
         circle at 50% 50%,
-        rgba(255, 154, 166, 0.18) 0%,
-        rgba(255, 154, 166, 0.06) 55%,
-        transparent 72%
+        rgba(255, 130, 100, 0.14) 0%,
+        rgba(255, 130, 100, 0.06) 42%,
+        rgba(255, 130, 100, 0.018) 62%,
+        transparent 85%
       );
-      top: 42%;
-      left: 38%;
+      top: 38%;
+      left: 35%;
       animation: blob-shimmer-d 14s ease-in-out infinite;
       animation-delay: -2s;
     }
 
     .blob-5 {
-      width: min(40vw, 340px);
-      height: min(40vw, 340px);
+      width: min(58vw, 500px);
+      height: min(58vw, 500px);
       border-radius: 48% 52% 50% 48%;
       background: radial-gradient(
         circle at 42% 58%,
-        rgba(255, 118, 135, 0.22) 0%,
-        rgba(255, 139, 160, 0.08) 54%,
-        transparent 74%
+        rgba(180, 60, 90, 0.16) 0%,
+        rgba(180, 60, 90, 0.07) 40%,
+        rgba(180, 60, 90, 0.022) 60%,
+        transparent 84%
       );
-      bottom: 12%;
-      right: 12%;
+      bottom: 8%;
+      right: 8%;
       animation: blob-shimmer-e 18s ease-in-out infinite;
       animation-delay: -9s;
     }
 
+    .blob-6 {
+      width: min(64vw, 560px);
+      height: min(64vw, 560px);
+      border-radius: 52% 48% 50% 50%;
+      background: radial-gradient(
+        circle at 48% 42%,
+        rgba(var(--blob-ember), 0.22) 0%,
+        rgba(var(--blob-ember), 0.1) 38%,
+        rgba(var(--blob-ember), 0.035) 58%,
+        transparent 84%
+      );
+      top: 18%;
+      left: -16%;
+      animation: blob-shimmer-f 22s ease-in-out infinite;
+      animation-delay: -4s;
+    }
+
+    .blob-7 {
+      width: min(68vw, 580px);
+      height: min(68vw, 580px);
+      border-radius: 48% 52% 50% 52%;
+      background: radial-gradient(
+        circle at 45% 48%,
+        rgba(var(--blob-wine), 0.28) 0%,
+        rgba(var(--blob-wine), 0.13) 36%,
+        rgba(var(--blob-wine), 0.045) 56%,
+        transparent 84%
+      );
+      bottom: -8%;
+      right: -14%;
+      animation: blob-shimmer-g 20s ease-in-out infinite;
+      animation-delay: -7s;
+    }
+
     @keyframes blob-shimmer-a {
-      0%,
-      100% {
+      0%, 100% {
         transform: translate(0, 0) scale(1);
-        opacity: 0.385;
+        opacity: 0.45;
       }
       40% {
-        transform: translate(12%, 10%) scale(1.12);
-        opacity: 0.572;
+        transform: translate(12%, 10%) scale(1.15);
+        opacity: 0.7;
       }
       70% {
-        transform: translate(-6%, 14%) scale(0.96);
-        opacity: 0.44;
+        transform: translate(-6%, 14%) scale(0.94);
+        opacity: 0.5;
       }
     }
 
     @keyframes blob-shimmer-b {
-      0%,
-      100% {
+      0%, 100% {
         transform: translate(0, 0) scale(1.02);
-        opacity: 0.308;
+        opacity: 0.4;
       }
       50% {
-        transform: translate(-14%, 8%) scale(1.1);
-        opacity: 0.528;
+        transform: translate(-14%, 8%) scale(1.12);
+        opacity: 0.65;
       }
     }
 
     @keyframes blob-shimmer-c {
-      0%,
-      100% {
+      0%, 100% {
         transform: translate(0, 0) rotate(0deg) scale(1);
-        opacity: 0.275;
+        opacity: 0.4;
       }
       45% {
-        transform: translate(8%, -12%) rotate(-6deg) scale(1.08);
-        opacity: 0.484;
+        transform: translate(8%, -12%) rotate(-6deg) scale(1.1);
+        opacity: 0.6;
       }
       75% {
-        transform: translate(-10%, 6%) rotate(4deg) scale(0.94);
-        opacity: 0.352;
+        transform: translate(-10%, 6%) rotate(4deg) scale(0.92);
+        opacity: 0.45;
       }
     }
 
     @keyframes blob-shimmer-d {
-      0%,
-      100% {
+      0%, 100% {
         transform: translate(0, 0) scale(0.95);
-        opacity: 0.242;
+        opacity: 0.35;
       }
       50% {
-        transform: translate(-18%, -10%) scale(1.15);
-        opacity: 0.44;
+        transform: translate(-18%, -10%) scale(1.18);
+        opacity: 0.55;
       }
     }
 
     @keyframes blob-shimmer-e {
-      0%,
-      100% {
+      0%, 100% {
         transform: translate(0, 0) scale(1);
-        opacity: 0.286;
+        opacity: 0.38;
       }
       33% {
-        transform: translate(-12%, -8%) scale(1.06);
-        opacity: 0.462;
+        transform: translate(-12%, -8%) scale(1.08);
+        opacity: 0.58;
       }
       66% {
-        transform: translate(10%, 12%) scale(0.92);
-        opacity: 0.33;
+        transform: translate(10%, 12%) scale(0.9);
+        opacity: 0.42;
+      }
+    }
+
+    @keyframes blob-shimmer-f {
+      0%, 100% {
+        transform: translate(0, 0) rotate(0deg) scale(1);
+        opacity: 0.38;
+      }
+      38% {
+        transform: translate(16%, -12%) rotate(7deg) scale(1.12);
+        opacity: 0.58;
+      }
+      68% {
+        transform: translate(-10%, 14%) rotate(-5deg) scale(0.93);
+        opacity: 0.42;
+      }
+    }
+
+    @keyframes blob-shimmer-g {
+      0%, 100% {
+        transform: translate(0, 0) rotate(0deg) scale(1);
+        opacity: 0.4;
+      }
+      42% {
+        transform: translate(-14%, -10%) rotate(-6deg) scale(1.1);
+        opacity: 0.6;
+      }
+      72% {
+        transform: translate(8%, 12%) rotate(5deg) scale(0.94);
+        opacity: 0.45;
       }
     }
 
@@ -259,8 +361,9 @@ const MAIL_SUBJECT = encodeURIComponent('Koryun v2 — inquiry');
       mix-blend-mode: overlay;
     }
 
+    /* Noise uses SVG turbulence — looks grainy / “soft”; hide to inspect layers */
     .noise-coarse {
-      opacity: 0.11;
+      opacity: 0.12;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
       background-repeat: repeat;
       background-size: 256px 256px;
@@ -268,7 +371,7 @@ const MAIL_SUBJECT = encodeURIComponent('Koryun v2 — inquiry');
 
     .noise-fine {
       z-index: 0;
-      opacity: 0.07;
+      opacity: 0.08;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.15' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E");
       background-repeat: repeat;
       background-size: 180px 180px;
@@ -281,22 +384,26 @@ const MAIL_SUBJECT = encodeURIComponent('Koryun v2 — inquiry');
       }
 
       .shimmer-layer {
-        opacity: 0.44;
+        opacity: 0.264;
       }
     }
 
     .content {
-      position: relative;
+      /* Optical center: slightly above geometric center (typographic balance) */
+      position: absolute;
       z-index: 1;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, calc(-50% - clamp(1.25rem, 4.5vmin, 3rem)));
       max-width: 34rem;
-      width: 100%;
+      width: min(34rem, calc(100vw - 2 * clamp(1rem, 3vw, 2rem)));
+      margin: 0;
       text-align: center;
-      flex: 1 1 auto;
-      min-height: 0;
       display: flex;
       flex-direction: column;
+      align-items: center;
       justify-content: center;
-      overflow: hidden;
+      overflow: visible;
     }
 
     .brand {
@@ -312,68 +419,65 @@ const MAIL_SUBJECT = encodeURIComponent('Koryun v2 — inquiry');
     }
 
     .countdown {
-      margin: 0 0 clamp(1rem, 3vh, 1.5rem);
+      margin: 0;
       min-height: 1.5rem;
       font-family: 'Geist Mono', ui-monospace, monospace;
       font-size: 0.875rem;
       font-weight: 400;
       font-variant-numeric: tabular-nums;
+      color: #fff;
+    }
+
+    .site-footer {
+      position: absolute;
+      z-index: 1;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: max(clamp(0.75rem, 2.5vw, 1.5rem), env(safe-area-inset-bottom, 0px));
+      width: min(
+        17rem,
+        calc(
+          100vw - 2 *
+            max(
+              clamp(0.75rem, 2.5vw, 1.5rem),
+              env(safe-area-inset-left, 0px),
+              env(safe-area-inset-right, 0px)
+            )
+        )
+      );
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      box-sizing: border-box;
+    }
+
+    .footer-line {
+      margin: 0;
+      font-size: clamp(0.5rem, 0.32rem + 0.85vw, 0.6rem);
+      font-weight: 400;
+      line-height: 1.35;
       color: var(--muted);
     }
 
-    .cta {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0.75rem 1.25rem;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.06);
-      border: none;
-      color: var(--text);
+    .footer-email {
+      color: #fff;
       font-family: 'Geist Mono', ui-monospace, monospace;
-      font-size: 0.875rem;
+      font-size: inherit;
       font-weight: 500;
       text-decoration: none;
-      transition: background 0.2s ease, transform 0.15s ease;
+      transition: opacity 0.2s ease;
     }
 
-    .button:hover {
-      background: rgba(226, 45, 67, 0.18);
+    .footer-email:hover {
+      opacity: 0.88;
+      text-decoration: underline;
+      text-underline-offset: 0.12em;
     }
 
-    .button:focus-visible {
-      outline: 2px solid var(--accent);
-      outline-offset: 3px;
-    }
-
-    .hint {
-      margin: 0;
-      max-width: 22rem;
-      font-size: 0.8125rem;
-      font-weight: 400;
-      line-height: 1.45;
-      color: var(--muted);
-    }
-
-    .foot {
-      position: relative;
-      z-index: 1;
-      margin-top: auto;
-      padding-top: clamp(1rem, 4vh, 2rem);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.8125rem;
-      font-weight: 400;
-      color: var(--muted);
-      flex-shrink: 0;
+    .footer-email:focus-visible {
+      outline: 2px solid #fff;
+      outline-offset: 2px;
+      border-radius: 2px;
     }
 
     ::selection {
@@ -411,7 +515,7 @@ const MAIL_SUBJECT = encodeURIComponent('Koryun v2 — inquiry');
           String(mins).padStart(2, '0') +
           'm ' +
           String(secs).padStart(2, '0') +
-          's until launch';
+          's';
       }
 
       tick();

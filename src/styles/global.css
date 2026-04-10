@@ -1,5 +1,4 @@
-/* Koryun - UX/UI Design Agency */
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Instrument+Serif:ital@0;1&display=swap');
+/* Koryun - UX/UI Design Agency — Geist Sans (loaded in BaseLayout) */
 
 :root {
   --color-bg: #0a0a0a;
@@ -9,8 +8,8 @@
   --color-accent: #e8c547;
   --color-accent-hover: #f0d76a;
   --color-border: #262626;
-  --font-sans: 'DM Sans', system-ui, sans-serif;
-  --font-serif: 'Instrument Serif', Georgia, serif;
+  --font-sans: 'Geist Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: 'Geist Sans', ui-sans-serif, system-ui, sans-serif;
   --max-width: 1200px;
   --section-padding: clamp(4rem, 10vw, 8rem);
 }

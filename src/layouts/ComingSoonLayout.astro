@@ -14,8 +14,11 @@ interface Props {
 const {
   title,
   description = 'Koryun is a UI/UX design and branding agency. A new experience is on the way.',
-  ogImage = 'https://cdn.prod.website-files.com/621b68aa86678f4b4952a8d6/63e4e5e3e8518d94f6194e18_Frame%201204.jpg',
+  ogImage: ogImageProp,
 } = Astro.props;
+
+const siteUrl = Astro.site ?? new URL('https://koryun.am');
+const ogImage = ogImageProp ?? new URL('/og-image.png', siteUrl).href;
 ---
 
 <!doctype html>
@@ -24,19 +27,44 @@ const {
     <meta charset="utf-8" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:url" content={new URL(Astro.url.pathname, siteUrl).href} />
     <meta property="og:type" content="website" />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <link rel="icon" href="/favicon.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/favicon.png" />
     <style is:global>
-      html,
+      html {
+        margin: 0;
+        height: 100%;
+        height: 100dvh;
+        max-height: 100dvh;
+        overflow: hidden;
+        overflow: clip;
+        overscroll-behavior: none;
+        -webkit-overflow-scrolling: auto;
+      }
+
       body {
         margin: 0;
         height: 100%;
+        height: 100dvh;
+        max-height: 100dvh;
         overflow: hidden;
+        overflow: clip;
         overscroll-behavior: none;
+        touch-action: manipulation;
+        position: fixed;
+        inset: 0;
+        width: 100%;
         font-family: 'Geist Sans', ui-sans-serif, system-ui, sans-serif;
       }
     </style>
