@@ -2,6 +2,7 @@
 """One-off generator for public/og-image.png (1200×630). Run: python3 scripts/generate-og-image.py"""
 from __future__ import annotations
 
+import os
 from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
@@ -56,8 +57,10 @@ def main() -> None:
 
     # Typography
     line1 = "Koryun is a design studio."
-    line2 = "Our new site launches June 1, 2026."
+    line2 = "Our new site launches December 1, 2026."
+    # OG_FONT overrides the macOS defaults (e.g. a Geist-Regular.ttf on Linux)
     font_paths = [
+        *([os.environ["OG_FONT"]] if os.environ.get("OG_FONT") else []),
         "/System/Library/Fonts/Supplemental/SFNS.ttf",
         "/System/Library/Fonts/SFNS.ttf",
         "/System/Library/Fonts/Helvetica.ttc",
