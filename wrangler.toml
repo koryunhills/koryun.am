@@ -1,4 +1,5 @@
-# Cloudflare Pages — connect this repo or deploy with:
+# Cloudflare Pages — auto-deployed on push to main by .github/workflows/deploy.yml.
+# Manual deploy:
 #   npx wrangler pages deploy dist --project-name=koryun
 #
 name = "koryun"
